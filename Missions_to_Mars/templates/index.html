@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mission to Mars</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" type="text/css">
+  
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="jumbotron text-center">
+      <h1>Mission to Mars</h1>
+      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape new data</a></p>
+    </div>
+
+    <!-- Mars scraping -->
+    <div class="row" >
+      <div>
+        <h1> Latest Mars News</h1>
+        <h2>{{ data_mars[0]["news_title"] }} </h2>
+        <h4>{{ data_mars[0]["news_paragraph"] }} </h4>
+        <div class="column2" style="float:right">
+        <h2> Mars Facts </h2>
+          {{ data_mars[0]['tables_fact_mars_clean_final']|safe }}
+        </div>
+        <div>
+        <h2> Featured Mars image </h2>  
+        <img  src="{{ data_mars[0]['featured_image_url'] }}"  > 
+        </div>
+      </div>
+
+    <div class="row" >
+        <div>
+
+        <h1> Mars Hemispheres</h1>
+        
+        {% for i in data_mars[0]['hemisphere_image_urls'] %}
+        <div class="col-md-3">
+          <figure>
+          <img style="max-width:100%;" src="{{ i['img_url'] }}" ,alt=""> 
+          <figcaption style="font-size:20px;">{{ i['title'] }}
+          </figcaption>
+          </figure>
+        </div>
+        {% endfor %}
+        
+        </div>
+        
+ 
+    
+
+  </div>
+</body>
+
+</html>
